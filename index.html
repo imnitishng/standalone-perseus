@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perseus Test</title>
+  <link rel="stylesheet" type="text/css" href="stylesheets/local-only/khan-site.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/local-only/khan-exercise.css">
+  <link rel="stylesheet" type="text/css" href="lib/katex/katex.css">
+  <link rel="stylesheet" type="text/css" href="lib/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="lib/mathquill/mathquill.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/perseus-admin-package/devices.min.css">
+  <link rel="stylesheet/less" type="text/css" href="stylesheets/exercise-content-package/perseus.less">
+  <link rel="stylesheet/less" type="text/css" href="stylesheets/perseus-admin-package/editor.less">
+  
+  
+  <!-- <link rel="stylesheet" type="text/css" href="stylesheet/embedded/mathstyles.css"> -->
+  <style id="less:stylesheets-exercise-content-package-perseus"></style>
+  <style>
+    body {
+      min-width: 0 !important;
+    }
+  </style>
+  
+  <script>less = {env: 'development', logLevel: 1};</script>
+  <script src="lib/less.js"></script>
+
+  <style type="text/css">
+    .MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+    .MathJax_Hover_Arrow {position: absolute; width: 15px; height: 11px; cursor: pointer}
+  </style>
+  
+  <style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+    .MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+    .MathJax_MenuItem {padding: 1px 2em; background: transparent}
+    .MathJax_MenuTitle {background-color: #CCCCCC; margin: -5px 0 0 0; text-align: center; font-style: italic; font-size: 80%; color: #444444; padding: 2px 0; overflow: hidden}
+    .MathJax_MenuArrow {position: absolute; right: .5em; color: #666666}
+    .MathJax_MenuActive .MathJax_MenuArrow {color: white}
+    .MathJax_MenuCheck {position: absolute; left: .7em}
+    .MathJax_MenuRadioCheck {position: absolute; left: .7em}
+    .MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+    .MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+    .MathJax_MenuDisabled {color: GrayText}
+    .MathJax_MenuActive {background-color: #606872; color: white}
+    .MathJax_Menu_Close {position: absolute; width: 31px; height: 31px; top: -15px; left: -15px}
+  </style>
+  <style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+    #MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+    #MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+  </style>
+  <style type="text/css">.MathJax_Preview {color: #888}
+    #MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+    #MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+    .MathJax_Error {color: #CC0000; font-style: italic}
+  </style>
+  <style type="text/css" data-aphrodite="">.buttonStyle_1quqytj{background-color:white !important;border:1px solid #ccc !important;border-left:0 !important;cursor:pointer !important;margin:0 !important;padding:5px 10px !important;position:relative !important;}.buttonStyle_1quqytj:first-child{border-left:1px solid #ccc !important;border-top-left-radius:3px !important;border-bottom-left-radius:3px !important;}.buttonStyle_1quqytj:last-child{border-right:1px solid #ccc !important;border-top-right-radius:3px !important;border-bottom-right-radius:3px !important;}.buttonStyle_1quqytj:hover{background-color:#ccc !important;}.buttonStyle_1quqytj:focus{z-index:2 !important;}.buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka{background-color:#ddd !important;border:1px solid #ccc !important;border-left:0 !important;cursor:pointer !important;margin:0 !important;padding:5px 10px !important;position:relative !important;}.buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:first-child{border-left:1px solid #ccc !important;border-top-left-radius:3px !important;border-bottom-left-radius:3px !important;}.buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:last-child{border-right:1px solid #ccc !important;border-top-right-radius:3px !important;border-bottom-right-radius:3px !important;}.buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:hover{background-color:#ccc !important;}.buttonStyle_1quqytj-o_O-selectedStyle_1o9e9ka:focus{z-index:2 !important;}.icon_zylrid{width:24px !important;height:24px !important;margin-right:8px !important;margin-top:-3px !important;vertical-align:middle !important;}.hud_j3igwl-o_O-enabled_k3uiq7{position:fixed !important;right:20px !important;bottom:20px !important;box-sizing:border-box !important;height:36px !important;padding:9px 16px !important;border-radius:18px !important;font-family:'Proxima Nova Semibold',sans-serif !important;font-size:15px !important;line-height:18px !important;color:#FFFFFF !important;user-select:none !important;border-width:0px !important;background-color:#f86700 !important;-moz-box-sizing:border-box !important;-webkit-user-select:none !important;-moz-user-select:none !important;-ms-user-select:none !important;}.hud_j3igwl-o_O-enabled_k3uiq7:hover{background-color:#df5c00 !important;}.hud_j3igwl-o_O-enabled_k3uiq7:active{background-color:#c75300 !important;}.infoTip_1ib9rpr{display:inline-block !important;margin-left:5px !important;position:relative !important;}.infoTipContainer_agadz4{position:absolute !important;top:-12px !important;left:22px !important;z-index:1000 !important;}.infoTipTriangle_1qit3it{height:10px !important;left:0 !important;position:absolute !important;top:8px !important;width:0 !important;z-index:1 !important;}.infoTipTriangle_1qit3it:before{border-bottom:9px solid transparent !important;border-top:9px solid transparent !important;content:" " !important;height:0 !important;position:absolute !important;top:0 !important;width:0 !important;border-right:9px solid #bbb !important;right:0 !important;}.infoTipTriangle_1qit3it:after{border-bottom:9px solid transparent !important;border-top:9px solid transparent !important;content:" " !important;height:0 !important;position:absolute !important;top:0 !important;width:0 !important;border-right:9px solid #fff !important;right:-1px !important;}.verticalShadow_l3yhgs-o_O-infoTipContentContainer_ae2krf{border:1px solid #ccc !important;box-shadow:0 1px 3px #ccc !important;border-bottom:1px solid #aaa !important;background:#fff !important;padding:5px 10px !important;width:240px !important;}</style>
+
+</head>
+
+<body>
+  <div class="framework-perseus"">
+    <div id="perseus" style="background-color: white;">
+        <div id="workarea" style="margin-left: 0px"> </div>
+          <button id="article-content" onclick="loadArticleContent(0)">
+            Load article content
+          </button>
+          <button id="article-content" onclick="loadArticleContent(1)">
+            Load exercise set 1
+          </button>
+          <button id="article-content" onclick="loadArticleContent(2)">
+            Load exercise set 2
+          </button>
+        </div>
+      <div id="perseus-area" style="margin-left: 0px"></div>
+    </div>
+  </div>
+
+  <script src="lib/babel-polyfills.min.js"></script>
+  <script src="lib/jquery.js"></script>
+  <script src="lib/underscore.js"></script>
+  <script src="lib/react-with-addons.js"></script>
+  <script src="lib/mathjax/2.1/MathJax.js?config=KAthJax-730d56e87e9c926b91584f6030314815&amp;delayStartupUntil=configured"></script>
+  <script src="lib/katex/katex.js"></script>
+  <script src="lib/mathquill/mathquill-basic.js"></script>
+  <script src="lib/kas.js"></script>
+  <script src="lib/i18n.js"></script>
+  <script src="lib/jquery.qtip.js"></script>
+  <script src="build/demo-perseus.js"></script>
+
+
+  <script>
+    const itemRendererFactory = window.React.createFactory(window.Perseus.ItemRenderer);
+    
+    function loadArticleContent(idx) {
+      function getJSON() {
+        perseusData = [
+        {
+            "question": {
+                "content": "##Customary units of weight\n\nWeight is a quantity of heaviness. For example, you are measuring the weight of your body when you step on to a scale.\n\nIn the customary system of measurement, the most common units of weight are the ounce (oz) and pound (lb).\n\n###How much is an ounce?\n\nA slice of bread has a weight of about $1$ ounce:\n\n ![](https://cdn.kastatic.org/ka-perseus-images/bd4c836e2437ef889d809d564ddb4e8ac4451f5a.png)\n\n\n###How much is a pound?\n\nA soccer ball has a weight of about $1$ pound:\n\n ![](https://cdn.kastatic.org/ka-perseus-images/059666ce6faa95cb1482c7d55c6d4e4e5694db48.svg)\n\n\n*Want to learn more about customary units of weight?  Check out [this video](v/us-customary-weight).*  ",
+                "images": {
+                    "https://cdn.kastatic.org/ka-perseus-images/bd4c836e2437ef889d809d564ddb4e8ac4451f5a.png": {
+                        "width": 75,
+                        "height": 80
+                    },
+                    "https://cdn.kastatic.org/ka-perseus-images/059666ce6faa95cb1482c7d55c6d4e4e5694db48.svg": {
+                        "width": 140,
+                        "height": 140
+                    }
+                },
+                "widgets": {}
+            },
+            "answerArea": {
+                "calculator": false,
+                "chi2Table": false,
+                "periodicTable": false,
+                "tTable": false,
+                "zTable": false
+            },
+            "itemDataVersion": {
+                "major": 0,
+                "minor": 1
+            },
+            "hints": []
+        },
+        {
+        "question": {
+            "content": "##Practice set 1: Estimating weight\n\n[[☃ graded-group-set 1]]\n\n*Want to try more problems like this? Check out [this exercise](e/estimating-mass--ounces-and-pounds-).*  ",
+            "images": {},
+            "widgets": {
+                "graded-group-set 1": {
+                    "type": "graded-group-set",
+                    "alignment": "default",
+                    "static": false,
+                    "graded": true,
+                    "options": {
+                        "gradedGroups": [
+                            {
+                                "title": "Problem 1A",
+                                "content": "**Identify the most reasonable unit to measure the weight of a refrigerator.**  \n\n\n[[☃ radio 1]]\n",
+                                "widgets": {
+                                    "radio 1": {
+                                        "type": "radio",
+                                        "alignment": "default",
+                                        "static": false,
+                                        "graded": true,
+                                        "options": {
+                                            "choices": [
+                                                {
+                                                    "content": "Ounces ",
+                                                    "correct": false
+                                                },
+                                                {
+                                                    "content": "Pounds",
+                                                    "correct": true
+                                                }
+                                            ],
+                                            "randomize": false,
+                                            "multipleSelect": false,
+                                            "displayCount": null,
+                                            "hasNoneOfTheAbove": false,
+                                            "onePerLine": true,
+                                            "deselectEnabled": false
+                                        },
+                                        "version": {
+                                            "major": 1,
+                                            "minor": 0
+                                        }
+                                    }
+                                },
+                                "images": {},
+                                "hint": {
+                                    "content": "Is it  more reasonable to measure how many 'bread slices heavy' a refrigerator is or how many 'soccer balls heavy' a refrigerator is?\n\n**Pounds is the most reasonable unit to measure the weight of a refrigerator.  **",
+                                    "widgets": {}
+                                },
+                                "widgetEnabled": true,
+                                "immutableWidgets": false
+                            },
+                            {
+                                "title": "Problem 1B",
+                                "content": "**Which is the closest to the weight of a composition notebook?**\n\n[[☃ radio 1]]\n\n![](https://cdn.kastatic.org/ka-perseus-images/f650a6be96d141fe1826ebb155d22392dfb83cbc.svg)",
+                                "widgets": {
+                                    "radio 1": {
+                                        "type": "radio",
+                                        "alignment": "default",
+                                        "static": false,
+                                        "graded": true,
+                                        "options": {
+                                            "choices": [
+                                                {
+                                                    "content": "$7$ ounces",
+                                                    "correct": true
+                                                },
+                                                {
+                                                    "content": "$70$ ounces",
+                                                    "correct": false
+                                                }
+                                            ],
+                                            "randomize": false,
+                                            "multipleSelect": false,
+                                            "displayCount": null,
+                                            "hasNoneOfTheAbove": false,
+                                            "onePerLine": true,
+                                            "deselectEnabled": false
+                                        },
+                                        "version": {
+                                            "major": 1,
+                                            "minor": 0
+                                        }
+                                    }
+                                },
+                                "images": {
+                                    "https://cdn.kastatic.org/ka-perseus-images/f650a6be96d141fe1826ebb155d22392dfb83cbc.svg": {
+                                        "width": 106,
+                                        "height": 148
+                                    }
+                                },
+                                "hint": {
+                                    "content": "Is the weight of a composition notebook closer to $7$ slices of bread or $70$ slices of bread?\n\n**The weight of a composition notebook is about $7$ ounces.**",
+                                    "widgets": {}
+                                },
+                                "widgetEnabled": true,
+                                "immutableWidgets": false
+                            },
+                            {
+                                "title": "Problem 1C",
+                                "content": "**Which is the closest to the weight of an ice skate?**\n\n[[☃ radio 1]]\n\n![](https://cdn.kastatic.org/ka-perseus-images/f6e1ae1e94c1a1ddf6f8cfe7b7dd960179fd7e51.svg)",
+                                "widgets": {
+                                    "radio 1": {
+                                        "type": "radio",
+                                        "alignment": "default",
+                                        "static": false,
+                                        "graded": true,
+                                        "options": {
+                                            "choices": [
+                                                {
+                                                    "content": "$20$ ounces",
+                                                    "correct": true
+                                                },
+                                                {
+                                                    "content": "$20$ pounds",
+                                                    "correct": false
+                                                }
+                                            ],
+                                            "randomize": false,
+                                            "multipleSelect": false,
+                                            "displayCount": null,
+                                            "hasNoneOfTheAbove": false,
+                                            "onePerLine": true,
+                                            "deselectEnabled": false
+                                        },
+                                        "version": {
+                                            "major": 1,
+                                            "minor": 0
+                                        }
+                                    }
+                                },
+                                "images": {
+                                    "https://cdn.kastatic.org/ka-perseus-images/f6e1ae1e94c1a1ddf6f8cfe7b7dd960179fd7e51.svg": {
+                                        "width": 212,
+                                        "height": 192
+                                    }
+                                },
+                                "hint": {
+                                    "content": "Is the weight of an ice skate closer to $20$ slices of bread (ounces) or $20$ soccer balls (pounds)?\n\n**The weight of an ice skate is about $20$ ounces.**\n",
+                                    "widgets": {}
+                                },
+                                "widgetEnabled": true,
+                                "immutableWidgets": false
+                            }
+                        ]
+                    },
+                    "version": {
+                        "major": 0,
+                        "minor": 0
+                    }
+                }
+            }
+        },
+        "answerArea": {
+            "calculator": false,
+            "chi2Table": false,
+            "periodicTable": false,
+            "tTable": false,
+            "zTable": false
+        },
+        "itemDataVersion": {
+            "major": 0,
+            "minor": 1
+        },
+        "hints": []
+        },
+  {
+      "question": {
+          "content": "##Practice set 2: Converting units of weight\n\n[[☃ graded-group-set 1]]\n\n*Want to try more problems like this? Check out these exercises:*  \n[Convert larger units to smaller units](e/converting-larger-units-to-smaller-units--ounces-and-pounds-)  \n[Converting between units](e/converting-units--us-customary-)",
+          "images": {},
+          "widgets": {
+              "graded-group-set 1": {
+                  "type": "graded-group-set",
+                  "alignment": "default",
+                  "static": false,
+                  "graded": true,
+                  "options": {
+                      "gradedGroups": [
+                          {
+                              "title": "Problem 2A",
+                              "content": "**Convert.**\n\n $9$ pounds $=$  [[☃ input-number 1]] ounces",
+                              "widgets": {
+                                  "input-number 1": {
+                                      "type": "input-number",
+                                      "alignment": "default",
+                                      "static": false,
+                                      "graded": true,
+                                      "options": {
+                                          "value": 144,
+                                          "simplify": "required",
+                                          "size": "small",
+                                          "inexact": false,
+                                          "maxError": 0.1,
+                                          "answerType": "number"
+                                      },
+                                      "version": {
+                                          "major": 0,
+                                          "minor": 0
+                                      }
+                                  }
+                              },
+                              "images": {},
+                              "hint": {
+                                  "content": "$1 \\text{ pound} = \\greenD{16}\\text{ ounces}$\n\n$\\blueD{9} \\text{ pounds} = \\blueD{9}\\times \\greenD{16}=144\\text{ ounces}$\n\n**$9$ pounds $=$ $144$ ounces**",
+                                  "widgets": {}
+                              },
+                              "widgetEnabled": true,
+                              "immutableWidgets": false
+                          },
+                          {
+                              "title": "Problem 2B",
+                              "content": "**Arrange the following measurements in order from smallest to largest.**\n\n[[☃ sorter 1]]",
+                              "widgets": {
+                                  "sorter 1": {
+                                      "type": "sorter",
+                                      "alignment": "default",
+                                      "static": false,
+                                      "graded": true,
+                                      "options": {
+                                          "correct": [
+                                              "$20$ ounces",
+                                              "$52$ ounces",
+                                              "$4$ pounds"
+                                          ],
+                                          "layout": "horizontal",
+                                          "padding": true
+                                      },
+                                      "version": {
+                                          "major": 0,
+                                          "minor": 0
+                                      }
+                                  }
+                              },
+                              "images": {},
+                              "hint": {
+                                  "content": "We know $\\green{20}$ ounces is less than $\\pink{52}$ ounces.  But where does $\\blue{4}$ pounds fit?\n\nWe need to convert $\\blue{4}$ pounds to ounces before we can compare.\n\n$1 \\text{ pound}=\\purple{16} \\text{ ounces} $\n\n\n$\\blue{4}  \\text{ pounds}= \\blue{4}\\times\\purple{16}=\\blue{64}\\text{ ounces}$\n\nNow, we can order the measurements written in ounces from smallest to largest as follows:  \n \n$\\green{20}$ ounces   \n$\\pink{52}$ ounces  \n$\\blue{64}$ ounces  \n\nSo the original measurements in order from smallest to largest are as follows:  \n\n$\\green{20}$ ounces   \n$\\pink{52}$ ounces  \n$\\blue{4}$ pounds   \n",
+                                  "widgets": {}
+                              },
+                              "widgetEnabled": true,
+                              "immutableWidgets": false
+                          },
+                          {
+                              "title": "Problem 2C",
+                              "content": "**Compare using $>,<,$ or $=$.**\n\n$85$  ounces [[☃ dropdown 1]] $8$ pounds  ",
+                              "widgets": {
+                                  "dropdown 1": {
+                                      "type": "dropdown",
+                                      "alignment": "default",
+                                      "static": false,
+                                      "graded": true,
+                                      "options": {
+                                          "static": false,
+                                          "placeholder": "",
+                                          "choices": [
+                                              {
+                                                  "content": ">",
+                                                  "correct": false
+                                              },
+                                              {
+                                                  "content": "<",
+                                                  "correct": true
+                                              },
+                                              {
+                                                  "content": "=",
+                                                  "correct": false
+                                              }
+                                          ]
+                                      },
+                                      "version": {
+                                          "major": 0,
+                                          "minor": 0
+                                      }
+                                  }
+                              },
+                              "images": {},
+                              "hint": {
+                                  "content": "To compare, we need the numbers to have the same units.  \n\nLet's convert $\\blueD{8}$ pounds to ounces.\n\n$1 \\text{ pound} = \\greenD{16}\\text{ ounces}$\n\n\nSo, $\\blueD{8} \\text{ pounds} = \\blueD{8}\\times \\greenD{16}=128\\text{ ounces}$\n\nNow, we can compare.\n\n${85} $ ounces $<$ $\\blueD{128}$ ounces\n\n**${85} $ ounces $<$ $\\blueD{8}$ pounds**\n",
+                                  "widgets": {}
+                              },
+                              "widgetEnabled": true,
+                              "immutableWidgets": false
+                          }
+                      ]
+                  },
+                  "version": {
+                      "major": 0,
+                      "minor": 0
+                  }
+              }
+          }
+      },
+      "answerArea": {
+          "calculator": false,
+          "chi2Table": false,
+          "periodicTable": false,
+          "tTable": false,
+          "zTable": false
+      },
+      "itemDataVersion": {
+          "major": 0,
+          "minor": 1
+      },
+      "hints": []
+  }
+    ]
+        return perseusData[idx];
+      }
+
+      function itemRenderData() {
+        return {
+          initialHintsVisible: 0,
+          item: getJSON(),
+          workAreaSelector: '#workarea',
+          problemAreaSelector: '#problem-area',
+          problemNum: Math.floor(Math.random() * 1000),
+          enabledFeatures: {
+            highlight: true,
+            toolTipFormats: true,
+          },
+          apiOptions: {
+            interactionCallback: null,
+            onFocusChange: null,
+            isMobile: null,
+            customKeypad: null,
+            readOnly: null,
+          },
+        };
+      }
+      
+      window.ReactDOM.render(
+        itemRendererFactory(itemRenderData()),
+        document.getElementById("perseus-area")
+      )
+    }
+    
+  </script>
+
+</body>
+
+</html>
