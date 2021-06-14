@@ -1,0 +1,126 @@
+{
+    "question":   
+    {
+        "content": "##Practice set 2: Converting units of weight\n\n[[\u2603 graded-group-set 1]]\n\n*Want to try more problems like this? Check out these exercises:*  \n[Convert larger units to smaller units](e/converting-larger-units-to-smaller-units--ounces-and-pounds-)  \n[Converting between units](e/converting-units--us-customary-)",
+        "images": {},
+        "widgets": {
+          "graded-group-set 1": {
+            "type": "graded-group-set",
+            "alignment": "default",
+            "static": false,
+            "graded": true,
+            "options": {
+              "gradedGroups": [
+                {
+                  "title": "Problem 2A",
+                  "content": "**Convert.**\n\n $9$ pounds $=$  [[\u2603 input-number 1]] ounces",
+                  "widgets": {
+                    "input-number 1": {
+                      "type": "input-number",
+                      "alignment": "default",
+                      "static": false,
+                      "graded": true,
+                      "options": {
+                        "value": 144,
+                        "simplify": "required",
+                        "size": "small",
+                        "inexact": false,
+                        "maxError": 0.1,
+                        "answerType": "number"
+                      },
+                      "version": {
+                        "major": 0,
+                        "minor": 0
+                      }
+                    }
+                  },
+                  "images": {},
+                  "hint": {
+                    "content": "$1 \\text{ pound} = \\greenD{16}\\text{ ounces}$\n\n$\\blueD{9} \\text{ pounds} = \\blueD{9}\\times \\greenD{16}=144\\text{ ounces}$\n\n**$9$ pounds $=$ $144$ ounces**",
+                    "widgets": {}
+                  },
+                  "widgetEnabled": true,
+                  "immutableWidgets": false
+                },
+                {
+                  "title": "Problem 2B",
+                  "content": "**Arrange the following measurements in order from smallest to largest.**\n\n[[\u2603 sorter 1]]",
+                  "widgets": {
+                    "sorter 1": {
+                      "type": "sorter",
+                      "alignment": "default",
+                      "static": false,
+                      "graded": true,
+                      "options": {
+                        "correct": [
+                          "$20$ ounces",
+                          "$52$ ounces",
+                          "$4$ pounds"
+                        ],
+                        "layout": "horizontal",
+                        "padding": true
+                      },
+                      "version": {
+                        "major": 0,
+                        "minor": 0
+                      }
+                    }
+                  },
+                  "images": {},
+                  "hint": {
+                    "content": "We know $\\green{20}$ ounces is less than $\\pink{52}$ ounces.  But where does $\\blue{4}$ pounds fit?\n\nWe need to convert $\\blue{4}$ pounds to ounces before we can compare.\n\n$1 \\text{ pound}=\\purple{16} \\text{ ounces} $\n\n\n$\\blue{4}  \\text{ pounds}= \\blue{4}\\times\\purple{16}=\\blue{64}\\text{ ounces}$\n\nNow, we can order the measurements written in ounces from smallest to largest as follows:  \n \n$\\green{20}$ ounces   \n$\\pink{52}$ ounces  \n$\\blue{64}$ ounces  \n\nSo the original measurements in order from smallest to largest are as follows:  \n\n$\\green{20}$ ounces   \n$\\pink{52}$ ounces  \n$\\blue{4}$ pounds   \n",
+                    "widgets": {}
+                  },
+                  "widgetEnabled": true,
+                  "immutableWidgets": false
+                },
+                {
+                  "title": "Problem 2C",
+                  "content": "**Compare using $>,<,$ or $=$.**\n\n$85$  ounces [[\u2603 dropdown 1]] $8$ pounds  ",
+                  "widgets": {
+                    "dropdown 1": {
+                      "type": "dropdown",
+                      "alignment": "default",
+                      "static": false,
+                      "graded": true,
+                      "options": {
+                        "static": false,
+                        "placeholder": "",
+                        "choices": [
+                          {
+                            "content": ">",
+                            "correct": false
+                          },
+                          {
+                            "content": "<",
+                            "correct": true
+                          },
+                          {
+                            "content": "=",
+                            "correct": false
+                          }
+                        ]
+                      },
+                      "version": {
+                        "major": 0,
+                        "minor": 0
+                      }
+                    }
+                  },
+                  "images": {},
+                  "hint": {
+                    "content": "To compare, we need the numbers to have the same units.  \n\nLet's convert $\\blueD{8}$ pounds to ounces.\n\n$1 \\text{ pound} = \\greenD{16}\\text{ ounces}$\n\n\nSo, $\\blueD{8} \\text{ pounds} = \\blueD{8}\\times \\greenD{16}=128\\text{ ounces}$\n\nNow, we can compare.\n\n${85} $ ounces $<$ $\\blueD{128}$ ounces\n\n**${85} $ ounces $<$ $\\blueD{8}$ pounds**\n",
+                    "widgets": {}
+                  },
+                  "widgetEnabled": true,
+                  "immutableWidgets": false
+                }
+              ]
+            },
+            "version": {
+              "major": 0,
+              "minor": 0
+            }
+          }
+        
+        }}}
