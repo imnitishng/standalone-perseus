@@ -1,5 +1,6 @@
 
   const sorterWidgetRegex = /sorter [0-9]+/;
+  console.log(window.apiVersion);
   const itemRendererFactory = window.React.createFactory(window.Perseus.ItemRenderer);
 
   const vueApp = new Vue({
@@ -9,17 +10,13 @@
     },
     mixins: [],
     data: () => ({
-      
-      loading: true,
-      
-      message: null,
-      
+      loading: true,      
+      message: null,      
       item: {},
       itemRenderer: null,
-      scratchpad: false,
-      
+      scratchpad: false,      
       blankState: null,
-
+      allowHints: true,
       message_strings: {
         showScratch: 'Show scratchpad',
         notAvailable: 'The scratchpad is not available',
@@ -36,14 +33,11 @@
       },
       
       usesTouch() {
-        
         const isMobileBrowser = new RegExp(/Mobi*|Android/);
         return isMobileBrowser.test(window.navigator.userAgent);
       },
       itemRenderData() {
         return {
-          
-          
           initialHintsVisible: 0,
           item: this.item,
           workAreaSelector: '#workarea',
@@ -54,13 +48,12 @@
             toolTipFormats: true,
           },
           apiOptions: {
-            
-            
             interactionCallback: this.interactionCallback,
             onFocusChange: this.dismissMessage,
             isMobile: this.isMobile,
             customKeypad: this.usesTouch,
-            readOnly: !this.interactive,
+            // readOnly: !this.interactive,
+            readOnly: false,
           },
         };
       },
@@ -84,7 +77,7 @@
       showCorrectAnswer: 'resetState',
     },
     beforeCreate() {
-      
+      // maybe add icu script here
     },
 
     beforeDestroy() {
@@ -93,19 +86,14 @@
     },
 
     created() {
-      this.setPerseusData();
+      // this.setPerseusData();
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+      const initPromise = window.Perseus.init({ skipMathJax: false, loadExtraWidgets: true })
+      // Try to load the appropriate directional CSS for the particular content
+      Promise.all([initPromise]).then(() => {
+        this.setPerseusData();
+        this.$emit('startTracking');
+      });
       
     },
     mounted() {
@@ -123,46 +111,17 @@
         }
 
         this.setItemData(getJSON());
-
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
       },
+
       validateItemData(obj) {
         return (
           [
-            
-            
-            
             'calculator',
             'chi2Table',
             'periodicTable',
             'tTable',
             'zTable',
-          ].reduce(
-            /* eslint-disable no-mixed-operators */
-            
-            
+          ].reduce(            
             (prev, key) =>
               !(
                 !prev ||
@@ -171,29 +130,21 @@
               ),
             true
           ) &&
-          
           Array.isArray(obj.hints) &&
           obj.hints.reduce(
-            
             (prev, item) => item && typeof item === 'object',
             true
           ) &&
-          
           obj.question &&
           typeof obj.question === 'object'
         );
-        /* eslint-enable no-mixed-operators */
       },
-      renderItem() {
-        
-        this.loading = true;
-        
-        this.blankState = null;
 
+      renderItem() {
+        this.loading = true;
+        this.blankState = null;
         console.log(this.$refs.perseusContainer);
 
-        
-        
         this.$set(
           this,
           'itemRenderer',
@@ -206,18 +157,15 @@
           )
         );
       },
+
       resetState(val) {
         if (!val) {
           this.restoreSerializedState(this.blankState);
         }
         this.setAnswer();
       },
+
       clearItemRenderer() {
-        
-        
-        
-        
-        
         try {
           reactDOM.unmountComponentAtNode(this.$refs.perseusContainer);
           this.$set(this, 'itemRenderer', null);
@@ -225,10 +173,7 @@
           logging.debug('Error during unmounting of item renderer', e);
         }
       },
-      /*
-      * Special method to extract the current state of a Perseus Sorter widget
-      * as it does not currently properly support getSerializedState
-      */
+
       addSorterState(questionState) {
         this.itemRenderer.getWidgetIds().forEach(id => {
           if (sorterWidgetRegex.test(id)) {
@@ -241,6 +186,7 @@
         });
         return questionState;
       },
+
       getSerializedState() {
         const hints = Object.keys(this.itemRenderer.hintsRenderer.refs).map(key =>
           this.itemRenderer.hintsRenderer.refs[key].getSerializedState()
@@ -253,6 +199,7 @@
           hints,
         };
       },
+
       restoreSerializedState(answerState) {
         this.itemRenderer.restoreSerializedState(answerState);
         this.itemRenderer.getWidgetIds().forEach(id => {
@@ -268,9 +215,9 @@
           }
         });
       },
+
       setAnswer() {
         this.blankState = this.getSerializedState();
-        
         if (
           this.itemRenderer &&
           this.answerState &&
@@ -288,6 +235,7 @@
           });
         }
       },
+
       checkAnswer() {
         if (this.itemRenderer && !this.loading) {
           const check = this.itemRenderer.scoreInput();
@@ -307,66 +255,52 @@
         }
         return null;
       },
+
       takeHint() {
         if (
           this.itemRenderer &&
           this.itemRenderer.state.hintsVisible < this.itemRenderer.getNumHints()
         ) {
           this.itemRenderer.showHint();
-          this.$parent.$emit('hintTaken', { answerState: this.getSerializedState() });
+          // this.$parent is undefined because it may be used in kolibri parents somewhere so this.$emit might work
+          // so the line below does not do anything to perseus render as far as i consider
+          // this.$parent.$emit('hintTaken', { answerState: this.getSerializedState() });
+          this.$emit('hintTaken', { answerState: this.getSerializedState() });
         }
       },
+
       interactionCallback() {
         this.$emit('interaction');
         this.dismissMessage();
       },
+
       dismissMessage() {
-        
         this.message = null;
       },
+      
       loadItemData() {
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
       },
+
       setItemData(itemData) {
         this.item = itemData;
         if (this.validateItemData(itemData)) {
           if (this.$el) {
             console.log('rendering');
-            
             this.renderItem();
           } else {
             console.log('listening');
             this.$once('mounted', this.renderItem);
+
+            console.log('inside setItemData i testing methods that run after component is rendered');
+            console.log(this.itemRenderer);
+            console.log(this.allowHints && (this.itemRenderer ? this.itemRenderer.getNumHints() : 0))
           }
         } else {
           logging.warn('Loaded item was malformed', itemData);
         }
       },
+
       setCorrectAnswer() {
         const questionRenderer = this.itemRenderer.questionRenderer;
         const widgetProps = questionRenderer.state.widgetInfo;
@@ -374,7 +308,6 @@
         const gradedWidgetIds = questionRenderer.widgetIds.filter(id => {
           return widgetProps[id].graded == null || widgetProps[id].graded;
         });
-
         try {
           gradedWidgetIds.forEach(id => {
             const props = widgetProps[id];

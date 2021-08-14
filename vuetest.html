@@ -614,7 +614,17 @@
     },
 
     created() {
-      this.setPerseusData();
+      // this.setPerseusData();
+
+      console.log(window.Perseus);
+      const initPromise = window.Perseus.init({ skipMathJax: true, loadExtraWidgets: true })
+      console.log(initPromise);
+      Promise.all([initPromise]).then(() => {
+        console.log('ok');
+        this.setPerseusData();
+        this.$emit('startTracking');
+      })
+
       // const initPromise = mathJaxPromise.then(() =>
       //   perseus.init({ skipMathJax: true, loadExtraWidgets: true })
       // );

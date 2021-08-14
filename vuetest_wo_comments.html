@@ -14,6 +14,7 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/perseus-admin-package/devices.min.css">
   <link rel="stylesheet/less" type="text/css" href="stylesheets/exercise-content-package/perseus.less">
   <link rel="stylesheet/less" type="text/css" href="stylesheets/perseus-admin-package/editor.less">
+  <link rel="stylesheet/less" type="text/css" href="build/perseus.css">
 
 
   <!-- <link rel="stylesheet" type="text/css" href="stylesheet/embedded/mathstyles.css"> -->
@@ -38,6 +39,10 @@
   <script src="lib/i18n.js"></script>
   <script src="lib/jquery.qtip.js"></script>
   <!-- <script src="perseus/src/perseus.js"></script> -->
+  <!-- <script src="build/perseus.js"></script> -->
+  
+  <!-- Get extra file based on comments in the webpack.config.js from perseus project -->
+  <!-- <script src="build/frame-perseus.js"></script> -->
   <script src="build/frame-perseus.js"></script>
 
   <style type="text/css">
@@ -459,7 +464,7 @@
             appearance="basic-link"
             :primary="false"
             @click="takeHint">
-            KButton if
+            Take Hint
           </button>
 
           <button
@@ -471,7 +476,6 @@
             KButton else
           </button>
           
-          CoreInfoIcon
         </div>
 
         <!-- <div v-if="hinted" id="hintlabel" :dir="contentDirection">{{ $tr("hintLabel") }}</div> -->
