@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "fractional": "^1.0.0",
+    "webpack": "^5.50.0",
+    "webpack-cli": "^4.8.0"
+  }
+}
