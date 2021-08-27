@@ -1,3 +1,7 @@
 perseus/
 .vscode/
 node_modules/
+perseus_standalone/
+perseus_files/
+perseus_jsons_old/
+temp_html_dumps/
