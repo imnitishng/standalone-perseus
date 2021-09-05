@@ -1,0 +1,72 @@
+#content-container {
+    margin: 2em;
+}
+
+#statusarea {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+}
+
+#solutionarea {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.red-alert-backgroud {
+    margin-top: 5px;
+    border: 1px solid;
+    float: left;
+    padding: 20px 30px;
+    background-color: #fce4e4;
+    border: #fcc2c3;
+}
+
+.green-alert-backgroud {
+    margin-top: 5px;
+    border: 1px solid;
+    float: left;
+    padding: 20px 30px;
+    background-color: #dbfcdf;
+    border: #d8ffdc;
+}
+
+.red-alert-text {
+    color: #cc0033;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 20px;
+    text-shadow: 1px 1px rgba(250,250,250,.3);
+}
+
+.green-alert-text {
+    color: #00cc07;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 20px;
+    text-shadow: 1px 1px rgba(250,250,250,.3);
+}
+
+.interactive-btn {
+    background-color: #4CAF50; 
+    border: none;
+    color: white;
+    width:100%;
+    padding: 0.7em 0.7em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 2px;
+    cursor: pointer;
+    min-width: 130px;
+}
+
+.checkanswer-btn {
+    background-color: #008CBA;
+}
+
+.dead-btn {
+    background-color: gray;
+}

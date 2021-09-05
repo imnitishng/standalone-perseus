@@ -16,6 +16,13 @@ const vueApp = new Vue({
     scratchpad: false,      
     blankState: null,
     allowHints: true,
+    interactive: true,
+    nextQuestionToggle: false,
+    maxQuestionIndex: 0,
+    questionIndex: 0,
+    perseusData: null,
+    messageType: 'blank',
+    exerciseComplete: false,
     message_strings: {
       showScratch: 'Show scratchpad',
       notAvailable: 'The scratchpad is not available',
@@ -24,6 +31,10 @@ const vueApp = new Vue({
       hintExplanation: 'If you use a hint, this question will not be added to your progress',
       hintLabel: 'Hint:',
       noMoreHint: 'No more hints',
+      exerciseComplete: 'Exercise Complete!',
+      correntAns: 'Correct!',
+      incorrectAns: 'Incorrect, try again or use a hint!',
+      incompleteAns: 'We could not understand your answer. Please check your answer for complete answer without extra text or symbols.'
     },
   }),
   computed: {
@@ -51,8 +62,8 @@ const vueApp = new Vue({
           onFocusChange: this.dismissMessage,
           isMobile: this.isMobile,
           customKeypad: this.usesTouch,
-          // readOnly: !this.interactive,
-          readOnly: false,
+          readOnly: !this.interactive,
+          // readOnly: false,
         },
       };
     },
@@ -85,12 +96,13 @@ const vueApp = new Vue({
   },
 
   created() {
-    // this.setPerseusData();
-    
+    this.perseusData = window.$('#my-data').data('dump');
+    this.maxQuestionIndex = window.$('#my-data').data('total');
+
     const initPromise = window.Perseus.init({ skipMathJax: false, loadExtraWidgets: true })
     // Try to load the appropriate directional CSS for the particular content
     Promise.all([initPromise]).then(() => {
-      this.setPerseusData();
+      this.setPerseusData(this.questionIndex);
       this.$emit('startTracking');
     });
     
@@ -103,13 +115,18 @@ const vueApp = new Vue({
       return 'ltr'
     },
 
-    setPerseusData() {
-      function getJSON() {
-        const perseusData = { "answerArea": { "calculator": false, "chi2Table": false, "periodicTable": false, "tTable": false, "zTable": false }, "hints": [{ "content": "When we skip count by tens,  we add $10$ to each number as we count.", "images": {}, "replace": false, "widgets": {} }, { "content": "Since our first number is missing, we need to **subtract** $10$ from $790$.\n\n${790} - 10 = \\blueE{780}$", "images": {}, "replace": false, "widgets": {} }, { "content": "Now, let\u0027s add $10$ to complete the list. \n\n$\\blueE{780} \\underset{ + 10}{\\rightarrow} {790} \\underset{ + 10}{\\rightarrow}\\purpleD{800}  \\underset{ + 10}{\\rightarrow} {810}\\underset{ + 10}{\\rightarrow}  \\maroonD{820} \\underset{ + 10}{\\rightarrow} \\goldE{830}$", "images": {}, "replace": false, "widgets": {} }, { "content": "Here is the completed set of numbers:\n\n$\\blueE{780},790,\\purpleD{800} , {810} , \\maroonD{820}, \\goldE{830} $", "images": {}, "replace": false, "widgets": {} }], "itemDataVersion": { "major": 0, "minor": 1 }, "question": { "content": "**Fill in the blanks by counting by $10$s. **\n\n | | | | |\n- | - | - | - | - \n[[\u2603 numeric-input 1]] | $790$ | [[\u2603 numeric-input 2]] | $810$  |[[\u2603 numeric-input 3]] | [[\u2603 numeric-input 4]]", "images": {}, "widgets": { "numeric-input 1": { "alignment": "default", "graded": true, "options": { "answers": [{ "maxError": null, "message": "", "simplify": "required", "status": "correct", "strict": false, "value": 780 }], "coefficient": false, "labelText": "", "multipleNumberInput": false, "rightAlign": false, "size": "normal", "static": false }, "static": false, "type": "numeric-input", "version": { "major": 0, "minor": 0 } }, "numeric-input 2": { "alignment": "default", "graded": true, "options": { "answers": [{ "maxError": null, "message": "", "simplify": "required", "status": "correct", "strict": false, "value": 800 }], "coefficient": false, "labelText": "", "multipleNumberInput": false, "rightAlign": false, "size": "normal", "static": false }, "static": false, "type": "numeric-input", "version": { "major": 0, "minor": 0 } }, "numeric-input 3": { "alignment": "default", "graded": true, "options": { "answers": [{ "maxError": null, "message": "", "simplify": "required", "status": "correct", "strict": false, "value": 820 }], "coefficient": false, "labelText": "", "multipleNumberInput": false, "rightAlign": false, "size": "normal", "static": false }, "static": false, "type": "numeric-input", "version": { "major": 0, "minor": 0 } }, "numeric-input 4": { "alignment": "default", "graded": true, "options": { "answers": [{ "maxError": null, "message": "", "simplify": "required", "status": "correct", "strict": false, "value": 830 }], "coefficient": false, "labelText": "", "multipleNumberInput": false, "rightAlign": false, "size": "normal", "static": false }, "static": false, "type": "numeric-input", "version": { "major": 0, "minor": 0 } } } } }
-        return perseusData
+    setPerseusData(index) {
+      function getItemForIndex(data, i) {
+        return data[i]
       }
 
-      this.setItemData(getJSON());
+      if(index < this.maxQuestionIndex)
+        this.setItemData(getItemForIndex(this.perseusData, index));
+      else {
+        this.exerciseComplete = true;
+        this.messageType = 'truth';
+        this.message = this.message_strings.exerciseComplete;
+      }
     },
 
     validateItemData(obj) {
@@ -236,6 +253,7 @@ const vueApp = new Vue({
     },
 
     checkAnswer() {
+      var result = null;
       if (this.itemRenderer && !this.loading) {
         const check = this.itemRenderer.scoreInput();
         this.empty = check.empty;
@@ -245,14 +263,44 @@ const vueApp = new Vue({
           const answerState = this.getSerializedState();
           
           const simpleAnswer = '';
-          return {
+          result = {
             correct: check.correct,
             answerState,
             simpleAnswer,
           };
         }
       }
+      this.postCheck(result);
       return null;
+    },
+
+    postCheck(result) {
+      if(result && result.correct) {
+        this.messageType = 'truth';
+        this.message = this.message_strings.correntAns;
+        this.checkBtnLabel = 'Next Question';
+        this.nextQuestionToggle = true;
+      }
+      else if(result && !result.correct) {
+        this.messageType = 'error';
+        this.message = this.message_strings.incorrectAns;
+        setTimeout(this.dismissMessage, 5000);
+      }
+      else {
+        this.messageType = 'error';
+        this.message = this.message_strings.incompleteAns;
+        setTimeout(this.dismissMessage, 5000);
+      }
+    },
+
+    nextQuestion() {
+      this.questionIndex += 1;
+      this.messageType = 'blank';
+      this.nextQuestionToggle = false;
+      this.itemRenderer.setState({
+        hintsVisible: 0,
+      });
+      this.setPerseusData(this.questionIndex);
     },
 
     takeHint() {
@@ -275,6 +323,7 @@ const vueApp = new Vue({
 
     dismissMessage() {
       this.message = null;
+      this.messageType = 'blank';
     },
     
     loadItemData() {

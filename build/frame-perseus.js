@@ -72,7 +72,7 @@
 /******/ 			script.type = 'text/javascript';
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
-/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"1":"extra-widgets"}[chunkId]||chunkId) + ".js";
+/******/ 			script.src = "assets/perseus/" + __webpack_require__.p + "" + chunkId + "." + ({"1":"extra-widgets"}[chunkId]||chunkId) + ".js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
