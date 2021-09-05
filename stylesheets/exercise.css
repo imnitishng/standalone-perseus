@@ -1,0 +1,36 @@
+#content-container {
+    margin: 2em;
+}
+
+#statusarea {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+}
+
+#solutionarea {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.interactive-btn {
+    background-color: #4CAF50; 
+    border: none;
+    color: white;
+    padding: 0.7em 0.7em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 2px;
+    cursor: pointer;
+}
+
+.checkanswer-btn {
+    background-color: #008CBA;
+}
+
+.dead-btn {
+    background-color: gray;
+}
